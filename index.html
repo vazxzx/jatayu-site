@@ -227,7 +227,8 @@ nav {
   padding: 20px 10px;
   text-align: center;
   transition: 0.3s;
-  min-height: 180px;
+  min-height: auto; /* 🔥 IMPORTANT */
+  padding: 14px 8px;
 
   display: flex;
   flex-direction: column;
@@ -327,7 +328,11 @@ footer {
 
 /* MOBILE */
 @media (max-width:800px){
-  .sports-grid { grid-template-columns:repeat(2,1fr); }
+  .sports-grid {
+    grid-template-columns: repeat(3, 1fr); /* 🔥 3 per row */
+    gap: 12px;
+    padding: 0 12px;
+  }
 }
 
 /* ===== INTERACTIVE GLOW ===== */
