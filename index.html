@@ -716,6 +716,9 @@ cards.forEach(card => grid.appendChild(card));
 today.setHours(0,0,0,0);
 
 document.querySelectorAll('.sport-card').forEach(card => {
+  // ❌ skip completed events
+  if (card.classList.contains('done')) return;
+
   const cardDate = new Date(card.dataset.date);
   cardDate.setHours(0,0,0,0);
 
