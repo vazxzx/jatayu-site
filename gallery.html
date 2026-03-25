@@ -116,22 +116,38 @@ body > * {
 }
 
 .gallery-grid {
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:15px;
-  max-width:1400px;
-  margin:auto;
+  column-count: 5;
+  column-gap: 15px;
+  max-width: 1400px;
+  margin: auto;
 }
 
 .gallery-grid img {
-  width:100%;
-  border-radius:16px;
-  object-fit:cover;
-  transition:0.3s;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 16px;
+  break-inside: avoid;
+  transition: 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
+/* smooth load animation */
+.gallery-grid img.loaded {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* hover */
 .gallery-grid img:hover {
-  transform:scale(1.05);
+  transform: scale(1.03);
+}
+
+/* MOBILE */
+@media (max-width: 800px) {
+  .gallery-grid {
+    column-count: 3;
+  }
 }
 
 /* MOBILE */
@@ -202,10 +218,11 @@ folders.forEach(folder => {
     img.src = `galleryimages/${folder}/${i}.jpg`;
 
     img.onload = () => {
-      grid.appendChild(img);
-      i++;
-      loadNext(); // keep loading
-    };
+  img.classList.add("loaded");
+  grid.appendChild(img);
+  i++;
+  loadNext();
+};
 
     img.onerror = () => {
       // stop when no more images
