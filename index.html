@@ -520,50 +520,7 @@ footer {
   <div class="leaderboard">
 
 
-<div class="team rank1">
-  <div class="team-left">
-    <img src="images/vikrantlogo.png">
-    <div class="team-name">Vikrant</div>
-  </div>
-  <div class="team-right">
-    <div class="team-change down">▼1</div>
-    <div class="team-points">4 pts</div>
-  </div>
-</div>
-
-<div class="team rank2">
-  <div class="team-left">
-    <img src="images/arihantlogo.png">
-    <div class="team-name">Arihant</div>
-  </div>
-  <div class="team-right">
-    <div class="team-change down">▼1</div>
-    <div class="team-points">4 pts</div>
-  </div>
-</div>
-
-<div class="team rank3">
-  <div class="team-left">
-    <img src="images/airavatlogo.png">
-    <div class="team-name">Airavat</div>
-  </div>
-  <div class="team-right">
-    <div class="team-change up">▲1</div>
-    <!-- <div class="team-change same">—</div> -->
-    <div class="team-points">6 pts</div>
-  </div>
-</div>
-
-<div class="team rank4">
-  <div class="team-left">
-    <img src="images/trishullogo.png">
-    <div class="team-name">Trishul</div>
-  </div>
-  <div class="team-right">
-    <div class="team-change up">▲1</div>
-    <div class="team-points">6 pts</div>
-  </div>
-</div>
+<div class="leaderboard" id="leaderboard"></div>
 
 
   </div>
@@ -708,7 +665,14 @@ footer {
   Government Medical College, Ratnagiri
 </footer>
 
+  
 <script>
+  const TEAM_DATA = [
+  { name: "Vikrant", points: 4, change: -1 },
+  { name: "Arihant", points: 4, change: -1 },
+  { name: "Airavat", points: 6, change: +1 },
+  { name: "Trishul", points: 6, change: +1 }
+];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
 
@@ -775,32 +739,38 @@ document.querySelectorAll('.team, .sport-card, h2').forEach(el => {
 });
 </script>
 <script>
-const leaderboard = document.querySelector('.leaderboard');
-const teams = Array.from(leaderboard.children);
+const leaderboard = document.getElementById('leaderboard');
 
-// SORT BY POINTS (DESC)
-teams.sort((a, b) => {
-  const aPoints = parseInt(a.querySelector('.team-points').innerText);
-  const bPoints = parseInt(b.querySelector('.team-points').innerText);
+// sort by points
+const sorted = [...TEAM_DATA].sort((a, b) => b.points - a.points);
 
-  if (bPoints !== aPoints) {
-    return bPoints - aPoints;
+sorted.forEach((team, index) => {
+  let changeClass = "same";
+  let symbol = "—";
+
+  if (team.change > 0) {
+    changeClass = "up";
+    symbol = "▲" + team.change;
+  } else if (team.change < 0) {
+    changeClass = "down";
+    symbol = "▼" + Math.abs(team.change);
   }
 
-  // 🔥 TIE BREAKER (alphabetical)
-  const aName = a.querySelector('.team-name').innerText;
-  const bName = b.querySelector('.team-name').innerText;
+  const div = document.createElement('div');
+  div.classList.add('team', `rank${index + 1}`);
 
-  return aName.localeCompare(bName);
-});
+  div.innerHTML = `
+    <div class="team-left">
+      <img src="images/${team.name.toLowerCase()}logo.png">
+      <div class="team-name">${team.name}</div>
+    </div>
+    <div class="team-right">
+      <div class="team-change ${changeClass}">${symbol}</div>
+      <div class="team-points">${team.points} pts</div>
+    </div>
+  `;
 
-// REORDER IN DOM
-teams.forEach(team => leaderboard.appendChild(team));
-
-// UPDATE RANK CLASSES
-teams.forEach((team, index) => {
-  team.classList.remove('rank1','rank2','rank3','rank4');
-  team.classList.add(`rank${index+1}`);
+  leaderboard.appendChild(div);
 });
 </script>
 </body>
