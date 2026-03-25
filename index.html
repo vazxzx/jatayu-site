@@ -516,14 +516,7 @@ footer {
 
 <section class="section">
   <h2>Leaderboard</h2>
-
-  <div class="leaderboard">
-
-
-<div class="leaderboard" id="leaderboard"></div>
-
-
-  </div>
+  <div class="leaderboard" id="leaderboard"></div>
 </section>
 
 <section class="section">
@@ -771,6 +764,8 @@ sorted.forEach((team, index) => {
   `;
 
   leaderboard.appendChild(div);
+  div.classList.add('fade-in');
+observer.observe(div);
 });
 </script>
 </body>
