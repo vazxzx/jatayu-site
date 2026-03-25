@@ -1,74 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gallery - Jatayu</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery - Jatayu</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: white;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
-      background: #111;
-    }
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
 
-    .header a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-    }
+body {
+  background: black;
+  color: white;
+  position: relative;
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 10px;
-      padding: 20px;
-    }
+body::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:500px;
+  pointer-events:none;
+  z-index:0;
 
-    .gallery img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-  </style>
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,0,0,0.25), transparent 70%);
+
+  filter: blur(40px);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER (SAME AS INDEX) */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(16px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.left-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  color:#ff2a2a;
+  font-weight:700;
+  font-size:24px;
+}
+
+.header a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 18px;
+  margin-left: 12px;
+
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.25s ease;
+}
+
+.header a.active {
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.35),
+    inset 0 0 12px rgba(255,255,255,0.12);
+}
+
+/* SECTION */
+.section {
+  padding:80px 20px;
+}
+
+.section h2 {
+  text-align:center;
+  margin-bottom:40px;
+  color:#ff2a2a;
+}
+
+/* GALLERY */
+.gallery-section {
+  margin-bottom:50px;
+}
+
+.gallery-title {
+  font-size:22px;
+  font-weight:600;
+  margin-bottom:15px;
+  color:#ff2a2a;
+}
+
+.gallery-grid {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:15px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.gallery-grid img {
+  width:100%;
+  border-radius:16px;
+  object-fit:cover;
+  transition:0.3s;
+}
+
+.gallery-grid img:hover {
+  transform:scale(1.05);
+}
+
+/* MOBILE */
+@media (max-width:800px){
+  .gallery-grid {
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+footer {
+  text-align:center;
+  padding:20px;
+  opacity:0.5;
+}
+</style>
 </head>
 
 <body>
 
 <header class="header">
-  <div>JATAYU</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="gallery.html">Gallery</a>
-  </nav>
+  <div class="left-nav">
+    <div class="logo">JATAYU</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html" class="active">Gallery</a>
+    </nav>
+  </div>
 </header>
 
-<div class="gallery" id="gallery"></div>
+<section class="section">
+  <h2>Gallery</h2>
+
+  <div id="gallery"></div>
+</section>
+
+<footer>
+  © 2026 Jatayu
+</footer>
 
 <script>
-  const imageFolder = "galleryimages/";
-  const images = [
-    "img1.jpg",
-    "img2.jpg",
-    "img3.jpg"
-  ];
+// 👉 ONLY EDIT THIS
+const folders = ["260326", "250326"];
 
-  const gallery = document.getElementById("gallery");
+// latest first
+folders.sort((a,b)=>b.localeCompare(a));
 
-  images.forEach(img => {
-    const image = document.createElement("img");
-    image.src = imageFolder + img;
-    gallery.appendChild(image);
-  });
+const container = document.getElementById("gallery");
+
+folders.forEach(folder => {
+
+  const section = document.createElement("div");
+  section.className = "gallery-section";
+
+  const formattedDate = `${folder.slice(0,2)}-${folder.slice(2,4)}-20${folder.slice(4,6)}`;
+
+  const title = document.createElement("div");
+  title.className = "gallery-title";
+  title.innerText = formattedDate;
+
+  const grid = document.createElement("div");
+  grid.className = "gallery-grid";
+
+  // 🔥 AUTO LOAD 1.jpg → until it fails
+  let i = 1;
+
+  function loadNext() {
+    const img = new Image();
+    img.src = `galleryimages/${folder}/${i}.jpg`;
+
+    img.onload = () => {
+      grid.appendChild(img);
+      i++;
+      loadNext(); // keep loading
+    };
+
+    img.onerror = () => {
+      // stop when no more images
+    };
+  }
+
+  loadNext();
+
+  section.appendChild(title);
+  section.appendChild(grid);
+  container.appendChild(section);
+});
 </script>
 
 </body>
