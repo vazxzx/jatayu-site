@@ -195,6 +195,36 @@ const folders = ["260326", "250326"];
 folders.sort((a,b)=>b.localeCompare(a));
 
 const container = document.getElementById("gallery");
+  function formatDate(folder) {
+  const day = parseInt(folder.slice(0,2));
+  const month = parseInt(folder.slice(2,4)) - 1;
+  const year = 2000 + parseInt(folder.slice(4,6));
+
+  const date = new Date(year, month, day);
+
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
+  today.setHours(0,0,0,0);
+  yesterday.setHours(0,0,0,0);
+  date.setHours(0,0,0,0);
+
+  if (date.getTime() === today.getTime()) return "Today";
+  if (date.getTime() === yesterday.getTime()) return "Yesterday";
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  let suffix = "th";
+  if (day % 10 === 1 && day !== 11) suffix = "st";
+  else if (day % 10 === 2 && day !== 12) suffix = "nd";
+  else if (day % 10 === 3 && day !== 13) suffix = "rd";
+
+  return `${day}${suffix} ${months[month]}`;
+}
 
 folders.forEach(folder => {
 
