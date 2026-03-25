@@ -37,13 +37,6 @@ body > * {
   position: relative;
   z-index: 1;
 }
-
-/* NAV */
-nav {
-  position:absolute;
-  width:100%;
-  padding:25px 60px;
-}
 .logo {
   color:#ff2a2a;
   font-weight:700;
@@ -384,15 +377,89 @@ footer {
   transform: translateY(0) scale(1);
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #111;
+    color: white;
+    position: relative; /* ADD THIS */
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(10px);
+  }
+
+  .header a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 18px;
+  margin-left: 12px;
+
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+
+  border-radius: 999px;
+
+  /* GLASS LOOK */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  transition: all 0.25s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+  .header a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.25),
+    transparent 40%);
+
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+  .header a:hover {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.header a:hover::before {
+  opacity: 1;
+}
+/* ACTIVE TAB */
+.header a.active {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.35),
+    0 0 40px rgba(255,255,255,0.15),
+    inset 0 0 12px rgba(255,255,255,0.12);
+
+  transform: scale(1.05);
+}
+  
+
 </style>
 
 </head>
 
 <body>
-
-<nav>
+<header class="header">
   <div class="logo">JATAYU</div>
-</nav>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+</header>
 
 <section class="hero">
   <img src="images/jatayulogo.png" class="hero-logo">
@@ -589,7 +656,6 @@ footer {
 </div>
 
 </div>
-</div>
 </section>
 
 <footer>
@@ -601,24 +667,27 @@ const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
 
 cards.sort((a, b) => {
-  const grid = document.querySelector('.sports-grid');
-const cards = Array.from(grid.children);
-
-cards.sort((a, b) => {
   const aDate = new Date(a.dataset.date);
   const bDate = new Date(b.dataset.date);
-
   return aDate - bDate;
 });
 
 cards.forEach(card => grid.appendChild(card));
-});
+  const links = document.querySelectorAll('.header a');
+const currentPage = window.location.pathname.split("/").pop();
 
-cards.forEach(card => grid.appendChild(card));
+links.forEach(link => {
+  const linkPage = link.getAttribute("href");
+
+  if (linkPage === currentPage || (currentPage === "" && linkPage === "index.html")) {
+    link.classList.add("active");
+  }
+});
 </script>
+  
 <script>
 /* ===== MOUSE GLOW TRACKING ===== */
-document.querySelectorAll('.team').forEach(card => {
+document.querySelectorAll('.team, .header a').forEach(card => {
   card.addEventListener('mousemove', e => {
     const rect = card.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
