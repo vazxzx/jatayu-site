@@ -109,10 +109,18 @@ body > * {
 }
 
 .gallery-title {
-  font-size:22px;
-  font-weight:600;
-  margin-bottom:15px;
-  color:#ff2a2a;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  color: #ff2a2a;
+
+  text-shadow:
+    0 0 10px rgba(255,0,0,0.6),
+    0 0 25px rgba(255,0,0,0.4),
+    0 0 40px rgba(255,0,0,0.2);
 }
 
 .gallery-grid {
@@ -193,11 +201,46 @@ folders.forEach(folder => {
   const section = document.createElement("div");
   section.className = "gallery-section";
 
-  const formattedDate = `${folder.slice(0,2)}-${folder.slice(2,4)}-20${folder.slice(4,6)}`;
+  function formatDate(folder) {
+  const day = parseInt(folder.slice(0,2));
+  const month = parseInt(folder.slice(2,4)) - 1;
+  const year = 2000 + parseInt(folder.slice(4,6));
+
+  const date = new Date(year, month, day);
+
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
+  // remove time for accurate compare
+  today.setHours(0,0,0,0);
+  yesterday.setHours(0,0,0,0);
+  date.setHours(0,0,0,0);
+
+  if (date.getTime() === today.getTime()) {
+    return "Today";
+  }
+
+  if (date.getTime() === yesterday.getTime()) {
+    return "Yesterday";
+  }
+
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  let suffix = "th";
+  if (day % 10 === 1 && day !== 11) suffix = "st";
+  else if (day % 10 === 2 && day !== 12) suffix = "nd";
+  else if (day % 10 === 3 && day !== 13) suffix = "rd";
+
+  return `${day}${suffix} ${months[month]}`;
+}
 
   const title = document.createElement("div");
   title.className = "gallery-title";
-  title.innerText = formattedDate;
+  title.innerText = formatDate(folder);
 
   const grid = document.createElement("div");
   grid.className = "gallery-grid";
