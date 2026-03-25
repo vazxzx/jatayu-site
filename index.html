@@ -327,7 +327,11 @@ footer {
     padding: 0 12px;
   }
 }
-
+.left-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 /* ===== INTERACTIVE GLOW ===== */
 .team {
   position: relative;
@@ -378,18 +382,23 @@ footer {
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background: #111;
-    color: white;
-    position: relative; /* ADD THIS */
-    z-index: 10;
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(10px);
-  }
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+
+  /* GLASS */
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
 
   .header a {
   position: relative;
@@ -454,11 +463,13 @@ footer {
 
 <body>
 <header class="header">
+  <div class="left-nav">
   <div class="logo">JATAYU</div>
   <nav>
     <a href="index.html">Home</a>
     <a href="gallery.html">Gallery</a>
   </nav>
+</div>
 </header>
 
 <section class="hero">
