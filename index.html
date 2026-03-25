@@ -2,177 +2,679 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jatayu Sports</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jatayu</title>
 
-  <!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+body {
+  background: black;
+  color: white;
+  position: relative; /* IMPORTANT */
+}
 
-    body {
-      background: #05070d;
-      color: white;
-      overflow-x: hidden;
-    }
+body::before {
+  content:"";
+  position:absolute; /* 🔥 key change */
+  top:0;
+  left:0;
+  width:100%;
+  height:500px; /* controls how far glow spreads */
+  pointer-events:none;
+  z-index:0;
 
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 25px 60px;
-      position: absolute;
-      width: 100%;
-      z-index: 10;
-    }
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,0,0,0.25), transparent 70%);
 
-    .logo {
-      font-size: 26px;
-      font-weight: 700;
-      color: #ffd700;
-      letter-spacing: 2px;
-    }
+  filter: blur(40px);
+}
 
-    /* HERO */
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background:
-        radial-gradient(circle at center, rgba(255,215,0,0.15), transparent 60%),
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.95)),
-        url('https://images.unsplash.com/photo-1505842465776-3ac1d0f63f84');
-      background-size: cover;
-      background-position: center;
-    }
+body > * {
+  position: relative;
+  z-index: 1;
+}
 
-    .hero h1 {
-      font-size: 70px;
-      font-weight: 700;
-      color: #ffd700;
-      text-shadow: 0 0 30px rgba(255,215,0,0.6);
-    }
+/* NAV */
+nav {
+  position:absolute;
+  width:100%;
+  padding:25px 60px;
+}
+.logo {
+  color:#ff2a2a;
+  font-weight:700;
+  font-size:24px;
+}
 
-    .hero p {
-      margin-top: 15px;
-      font-size: 20px;
-      opacity: 0.85;
-    }
+/* HERO */
+.hero {
+  height: 70vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 
-    /* SECTION */
-    .section {
-      padding: 100px 20px;
-      text-align: center;
-    }
+  background: transparent;
+}
 
-    .section h2 {
-      font-size: 38px;
-      margin-bottom: 50px;
-      color: #ffd700;
-    }
+.hero::before {
+  content:"";
+  position:absolute;
+  top:40%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:400px;
+  height:400px;
+  background: radial-gradient(circle, rgba(255,0,0,0.3), transparent 70%);
+  filter: blur(40px);
+  z-index:0;
+}
 
-    /* EVENT CARD */
-    .event-card {
-      width: 350px;
-      margin: auto;
-      border-radius: 20px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,215,0,0.2);
-      box-shadow: 0 0 40px rgba(255,215,0,0.1);
-      transition: 0.4s;
-    }
+.hero-logo {
+  width:140px;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:20px;
+  margin-bottom:20px;
+  opacity:0;
+  transform:scale(0.5);
+  animation:logoPop 1s ease forwards;
+}
 
-    .event-card:hover {
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 0 60px rgba(255,215,0,0.25);
-    }
+@keyframes logoPop {
+  to { opacity:1; transform:scale(1); }
+}
+@keyframes winnerFlow {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
+}
 
-    .event-card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
+.hero h1 {
+  font-size:64px;
+  color:#ff2a2a;
+  text-shadow:0 0 15px rgba(255,0,0,0.5);
+}
 
-    .event-info {
-      padding: 25px;
-    }
+.hero p {
+  margin-top:10px;
+  opacity:0.8;
+}
 
-    .event-info h3 {
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
+.subtitle {
+  margin-top:8px;
+  font-size:14px;
+  letter-spacing:2px;
+  opacity:0.6;
+}
 
-    .event-info p {
-      opacity: 0.75;
-      margin: 6px 0;
-      font-size: 15px;
-    }
+/* SECTION */
+.section {
+  padding:80px 20px;
+  background: transparent;
+}
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 30px;
-      background: #02040a;
-      opacity: 0.6;
-      font-size: 14px;
-    }
+.section:first-of-type {
+  padding-top: 20px;
+}
 
-  </style>
+.section h2 {
+  text-align:center;
+  margin-bottom:40px;
+  color:#ff2a2a;
+}
+
+/* LEADERBOARD */
+.leaderboard {
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.team {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#111;
+  padding:20px 25px;
+  border-radius:16px;
+  border:1px solid rgba(255,0,0,0.2);
+}
+
+/* GLOW RANKS */
+.rank1 {
+  box-shadow:
+    0 0 30px rgba(255,215,0,0.8),
+    0 0 80px rgba(255,215,0,0.4),
+    inset 0 0 20px rgba(255,215,0,0.2);
+}
+
+.rank2 {
+  box-shadow:
+    0 0 25px rgba(192,192,192,0.8),
+    0 0 70px rgba(192,192,192,0.4);
+}
+
+.rank3 {
+  box-shadow:
+    0 0 25px rgba(205,127,50,0.8),
+    0 0 70px rgba(205,127,50,0.4);
+}
+
+.rank4 {
+  box-shadow:
+    0 0 20px rgba(220,220,220,0.4);
+}
+
+.team-left {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.team-left img {
+  width:60px;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.team-name {
+  font-size:18px;
+  font-weight:600;
+}
+
+.team-right {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.team-change {
+  font-size:14px;
+}
+
+.up { color:#00ff88; }
+.down { color:#ff4d4d; }
+.same { color:#aaa; }
+
+.team-points {
+  font-size:18px;
+  font-weight:700;
+  color:#ff2a2a;
+}
+
+/* SPORTS */
+.sports-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  width: 100%;           /* 🔥 FULL WIDTH */
+  max-width: 1400px;     /* optional cap */
+  margin: 0 auto;
+  padding: 0 40px;       /* spacing from edges */
+}
+
+.sport-card {
+  background: #111;
+  border-radius: 20px;
+  padding: 20px 10px;
+  text-align: center;
+  transition: 0.3s;
+  min-height: 180px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sport-card:hover {
+  transform:translateY(-6px);
+}
+
+.sport-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 0 auto 10px;
+}
+
+.sport-meta {
+  margin-top:8px;
+  font-size:12px;
+  opacity:1;
+}
+
+.sport-meta.winner {
+  margin-top:8px;
+  font-size:13px;
+  font-weight:600;
+
+  background: linear-gradient(90deg, #00ff88, #00ccff, #00ff88);
+  background-size: 200%;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: unset;
+
+  animation: winnerFlow 3s linear infinite;
+}
+
+.results-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.results-col {
+  flex: 1;
+  text-align: center;
+}
+
+.category {
+  font-weight: 600;
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.pos {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* medal colors */
+.gold { color:#FFD700; }
+.silver { color:#C0C0C0; }
+.bronze { color:#CD7F32; }
+
+.sport-card.done {
+  transform: scale(0.97);
+}
+
+/* GREEN AURA */
+.sport-card {
+  position: relative;
+  z-index: 1;
+}
+
+.sport-card.done::before {
+  content:"";
+  position:absolute;
+  inset:-25px;
+  background: radial-gradient(circle, rgba(0,255,120,0.25), transparent 70%);
+  filter: blur(35px);
+  z-index:-2; /* 🔥 pushes it BEHIND card properly */
+}
+
+/* REMOVE TICK (cleaner look) */
+.sport-card.done::after {
+  display:none;
+}
+
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:20px;
+  opacity:0.5;
+}
+
+/* MOBILE */
+@media (max-width:800px){
+  .sports-grid { grid-template-columns:repeat(2,1fr); }
+}
+
+/* ===== INTERACTIVE GLOW ===== */
+.team {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.team::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.15),
+    transparent 40%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.team::after {
+  content:"";
+  position:absolute;
+  inset:-30px;
+  background: radial-gradient(circle, rgba(255,0,0,0.35), transparent 70%);
+  z-index:-1;
+  filter: blur(35px);
+  opacity:0.7;
+}
+
+.team:hover::before {
+  opacity: 1;
+}
+
+/* Smooth tilt */
+.team:hover {
+  transform: scale(1.03);
+}
+
+/* ===== SCROLL ANIMATION ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition: all 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+</style>
 
 </head>
 
 <body>
 
-  <!-- NAV -->
+<nav>
+  <div class="logo">JATAYU</div>
+</nav>
 
-  <nav>
-    <div class="logo">JATAYU</div>
-  </nav>
+<section class="hero">
+  <img src="images/jatayulogo.png" class="hero-logo">
+  <h1>JATAYU</h1>
+  <p>Where competition meets legacy</p>
+  <div class="subtitle">ANNUAL MULTISPORT EVENT, 2026</div>
+</section>
 
-  <!-- HERO -->
+<section class="section">
+  <h2>Leaderboard</h2>
 
-  <section class="hero">
-    <div>
-      <h1>JATAYU SPORTS</h1>
-      <p>Where competition meets legacy</p>
-    </div>
-  </section>
+  <div class="leaderboard">
 
-  <!-- EVENTS -->
 
-  <section class="section">
-    <h2>Upcoming Sport</h2>
-
-```
-<div class="event-card">
-  <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b">
-
-  <div class="event-info">
-    <h3>Football Championship</h3>
-    <p>📅 10 April 2026</p>
-    <p>⏰ 5:00 PM</p>
+<div class="team rank1">
+  <div class="team-left">
+    <img src="images/vikrantlogo.png">
+    <div class="team-name">Vikrant</div>
+  </div>
+  <div class="team-right">
+    <div class="team-change down">▼1</div>
+    <div class="team-points">4 pts</div>
   </div>
 </div>
-```
 
-  </section>
+<div class="team rank2">
+  <div class="team-left">
+    <img src="images/arihantlogo.png">
+    <div class="team-name">Arihant</div>
+  </div>
+  <div class="team-right">
+    <div class="team-change down">▼1</div>
+    <div class="team-points">4 pts</div>
+  </div>
+</div>
 
-  <footer>
-    © 2026 Jatayu Sports
-  </footer>
+<div class="team rank3">
+  <div class="team-left">
+    <img src="images/airavatlogo.png">
+    <div class="team-name">Airavat</div>
+  </div>
+  <div class="team-right">
+    <div class="team-change up">▲1</div>
+    <!-- <div class="team-change same">—</div> -->
+    <div class="team-points">6 pts</div>
+  </div>
+</div>
 
+<div class="team rank4">
+  <div class="team-left">
+    <img src="images/trishullogo.png">
+    <div class="team-name">Trishul</div>
+  </div>
+  <div class="team-right">
+    <div class="team-change up">▲1</div>
+    <div class="team-points">6 pts</div>
+  </div>
+</div>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>Upcoming Sports</h2>
+
+<div class="sports-grid">
+
+<div class="sport-card done" data-date="2026-03-25">
+  <img src="image.png">
+  <p>Tug of War</p>
+  <div class="sport-meta winner">
+  <div class="results-row">
+
+    <div class="results-col">
+      <div class="category">Boys</div>
+      <div class="pos gold">🥇 Airavat</div>
+      <div class="pos silver">🥈 Trishul</div>
+      <div class="pos bronze">🥉 Vikrant</div>
+    </div>
+
+    <div class="results-col">
+      <div class="category">Girls</div>
+      <div class="pos gold">🥇 Team A</div>
+      <div class="pos silver">🥈 Team B</div>
+      <div class="pos bronze">🥉 Team C</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-26">
+  <img src="image.png">
+  <p>Volleyball</p>
+  <div class="sport-meta">26 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-27">
+  <img src="image.png">
+  <p>BGMI</p>
+  <div class="sport-meta">27 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-28">
+  <img src="image.png">
+  <p>Football</p>
+  <div class="sport-meta">28 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-28">
+  <img src="image.png">
+  <p>Box Cricket</p>
+  <div class="sport-meta">28 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-28">
+  <img src="image.png">
+  <p>Table Tennis</p>
+  <div class="sport-meta">28 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-29">
+  <img src="image.png">
+  <p>Badminton</p>
+  <div class="sport-meta">29 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-29">
+  <img src="image.png">
+  <p>Carrom</p>
+  <div class="sport-meta">29 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-03-29">
+  <img src="image.png">
+  <p>Kabaddi</p>
+  <div class="sport-meta">29 March</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-03">
+  <img src="image.png">
+  <p>Kho-Kho</p>
+  <div class="sport-meta">3 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-03">
+  <img src="image.png">
+  <p>Chess</p>
+  <div class="sport-meta">3 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-04">
+  <img src="image.png">
+  <p>Swimming</p>
+  <div class="sport-meta">4 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-04">
+  <img src="image.png">
+  <p>Free Fire</p>
+  <div class="sport-meta">4 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>100m Race</p>
+  <div class="sport-meta">5 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>Relay</p>
+  <div class="sport-meta">5 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>Discus Throw</p>
+  <div class="sport-meta">5 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>Cricket</p>
+  <div class="sport-meta">5 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>Marathon</p>
+  <div class="sport-meta">5 April</div>
+</div>
+
+<div class="sport-card" data-date="2026-04-05">
+  <img src="image.png">
+  <p>Shot Put</p>
+  <div class="sport-meta">5 April</div>
+</div>
+</div>
+
+
+  </div>
+</section>
+
+<footer>
+  © 2026 Jatayu
+</footer>
+
+<script>
+const grid = document.querySelector('.sports-grid');
+const cards = Array.from(grid.children);
+
+cards.sort((a, b) => {
+  const grid = document.querySelector('.sports-grid');
+const cards = Array.from(grid.children);
+
+cards.sort((a, b) => {
+  const aDate = new Date(a.dataset.date);
+  const bDate = new Date(b.dataset.date);
+
+  return aDate - bDate;
+});
+
+cards.forEach(card => grid.appendChild(card));
+});
+
+cards.forEach(card => grid.appendChild(card));
+</script>
+<script>
+/* ===== MOUSE GLOW TRACKING ===== */
+document.querySelectorAll('.team').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    card.style.setProperty('--x', x + '%');
+    card.style.setProperty('--y', y + '%');
+  });
+});
+
+/* ===== SCROLL ANIMATION ===== */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    } else {
+      entry.target.classList.remove('visible'); // THIS LINE IS KEY
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.team, .sport-card, h2').forEach(el => {
+  el.classList.add('fade-in');
+  observer.observe(el);
+});
+</script>
+<script>
+const leaderboard = document.querySelector('.leaderboard');
+const teams = Array.from(leaderboard.children);
+
+// SORT BY POINTS (DESC)
+teams.sort((a, b) => {
+  const aPoints = parseInt(a.querySelector('.team-points').innerText);
+  const bPoints = parseInt(b.querySelector('.team-points').innerText);
+
+  if (bPoints !== aPoints) {
+    return bPoints - aPoints;
+  }
+
+  // 🔥 TIE BREAKER (alphabetical)
+  const aName = a.querySelector('.team-name').innerText;
+  const bName = b.querySelector('.team-name').innerText;
+
+  return aName.localeCompare(bName);
+});
+
+// REORDER IN DOM
+teams.forEach(team => leaderboard.appendChild(team));
+
+// UPDATE RANK CLASSES
+teams.forEach((team, index) => {
+  team.classList.remove('rank1','rank2','rank3','rank4');
+  team.classList.add(`rank${index+1}`);
+});
+</script>
 </body>
 </html>
+<!-- ▲ ▼ -->
