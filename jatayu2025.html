@@ -9,8 +9,8 @@
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
-
 body {
+  overflow-x: hidden;
   background: black;
   color: white;
   position: relative;
@@ -46,43 +46,90 @@ body > * {
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
 
-  padding: 12px 20px;
+  padding: 12px 16px;
 
   background: rgba(10, 10, 10, 0.5);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255,255,255,0.08);
+
+  overflow: visible;
+  overflow-x: clip;
 }
 
 .left-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  min-width: 0;
+  overflow: visible;
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  padding: 14px 0;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
 }
 
 .logo {
   color:#ff2a2a;
   font-weight:700;
   font-size:24px;
+  white-space: nowrap;
 }
 
 /* NAV BUTTONS (SAME GLASS STYLE) */
 .header a {
+  flex: 0 0 auto;
+  white-space: nowrap;
+
   position: relative;
   display: inline-block;
-  padding: 8px 18px;
-  margin-left: 12px;
+  backdrop-filter: blur(12px);
+
+  padding: 8px 16px;
+  font-size: 14px;
 
   color: white;
   text-decoration: none;
-  font-size: 14px;
 
   border-radius: 999px;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
 
   transition: all 0.25s ease;
+}
+
+.header a::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 999px;
+
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.18),
+    transparent 45%
+  );
+
+  opacity: 0;
+  transition: opacity 0.25s;
+
+  pointer-events: none;
+}
+
+.header a:hover::before {
+  opacity: 1;
 }
 
 .header a:hover {
@@ -92,16 +139,20 @@ body > * {
 
 .header a.active {
   background: rgba(255,255,255,0.22);
+
   box-shadow:
-    0 0 20px rgba(255,255,255,0.35),
-    0 0 40px rgba(255,255,255,0.15);
+  0 0 10px rgba(255,255,255,0.25),
+  0 0 18px rgba(255,255,255,0.12),
+  inset 0 0 8px rgba(255,255,255,0.1);
+
+  transform: scale(1.05);
 }
 
 /* TITLE (SAME HERO STYLE BUT NO LOGO) */
 .page-title {
   margin-top: 80px;
   text-align: center;
-  font-size: 64px;
+  font-size: 48px;
   color:#ff2a2a;
   text-shadow:0 0 15px rgba(255,0,0,0.5);
 }
@@ -128,6 +179,8 @@ body > * {
   padding:20px 25px;
   border-radius:16px;
   border:1px solid rgba(255,0,0,0.2);
+  width: 100%;
+  max-width: 100%;
 
   position: relative;
   overflow: hidden;
@@ -179,6 +232,8 @@ body > * {
 /* MULTI TEAM FIX */
 .team-left.multi {
   display: flex;
+  flex: 1;
+  min-width: 0;
   align-items: center;
   gap: 25px;
 }
@@ -186,8 +241,8 @@ body > * {
 /* group both teams together */
 .team-group {
   display: flex;
-  align-items: center;
-  gap: 40px;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .team-mini {
@@ -204,13 +259,28 @@ body > * {
 }
 
 /* 👑 CROWN */
-.crown {
-  font-size: 26px;
-  display: flex;
-  align-items: center;
+.points-wrapper {
+  position: relative;
+  display: inline-block;
+}
 
-  filter: drop-shadow(0 0 10px gold)
-          drop-shadow(0 0 20px gold);
+.team-points {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff2a2a;
+}
+
+/* 👑 perfectly above the number */
+.crown {
+  position: absolute;
+  top: -28px;              /* 🔼 more up */
+  left: 15%;               /* ⬅ more left */
+  transform: translateX(-50%);
+
+  font-size: 24px;         /* 🔥 bigger */
+
+  filter: drop-shadow(0 0 12px gold)
+          drop-shadow(0 0 25px gold);
 
   animation: crownGlow 2s infinite alternate;
 }
@@ -228,6 +298,9 @@ body > * {
 .team-name {
   font-size:18px;
   font-weight:600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .team-right {
@@ -237,9 +310,11 @@ body > * {
 }
 
 .team-points {
-  font-size:18px;
-  font-weight:700;
-  color:#ff2a2a;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff2a2a;
+
+  text-align: center;
 }
 
 /* FADE ANIMATION */
@@ -273,49 +348,58 @@ body > * {
     0 0 25px rgba(255,0,0,0.4),
     0 0 40px rgba(255,0,0,0.2);
 }
-  @media (max-width: 600px) {
+.team-right.vertical {
+  position: relative;
 
-  /* ===== FIX NAV ===== */
-  nav {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 8px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  nav::-webkit-scrollbar {
-    display: none;
-  }
+  min-width: 80px;
+}
 
+@media (max-width: 600px) {
   .header a {
-    padding: 5px 10px;
     font-size: 12px;
-    white-space: nowrap;
+    padding: 6px 12px;
   }
 
-  /* ===== FIX LEADERBOARD TOP CARD ===== */
+  .logo {
+    font-size: 18px;
+  }
+}
+@media (max-width: 600px) {
 
-  .team-left.multi {
-    gap: 10px; /* 🔥 reduce spacing */
+  .team {
+    padding: 16px;
+  }
+
+  .team-left {
+    flex: 1;
+    min-width: 0;
   }
 
   .team-group {
-    gap: 12px; /* 🔥 MUCH smaller */
+    gap: 16px; /* OK */
+    /* ❌ REMOVE flex-wrap */
   }
 
   .team-mini img {
-    width: 40px; /* 🔥 smaller logos */
-    height: 40px;
+    width: 45px;
+    height: 45px;
   }
 
   .team-name {
-    font-size: 14px; /* 🔥 smaller text */
+    font-size: 16px;
   }
 
-  .team {
-    padding: 15px; /* tighter */
+  .team-right {
+    flex-shrink: 0;
   }
 
+  .team-points {
+    font-size: 16px;
+  }
 }
 </style>
 </head>
@@ -357,21 +441,24 @@ TEAM_DATA.forEach((entry, index) => {
 
   // 🔥 generate multiple teams inside one card
   const teamsHTML = entry.teams.map(name => `
-    <div class="team-mini">
-      <img src="images/${name.toLowerCase()}logo.png">
-      <div class="team-name">${name}</div>
-    </div>
-  `).join("");
+  <div class="team-mini vertical">
+    <img src="images/${name.toLowerCase()}logo.png">
+    <div class="team-name">${name}</div>
+  </div>
+`).join("");
 
   div.innerHTML = `
   <div class="team-left multi">
-    ${crown}
     <div class="team-group">
       ${teamsHTML}
     </div>
   </div>
+
   <div class="team-right">
-    <div class="team-points">${entry.points} pts</div>
+    <div class="points-wrapper">
+      ${index === 0 ? '<span class="crown">👑</span>' : ''}
+      <span class="team-points">${entry.points} pts</span>
+    </div>
   </div>
 `;
 
