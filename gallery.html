@@ -220,6 +220,30 @@ footer {
   opacity: 1;
   pointer-events: all;
 }
+  @media (max-width: 600px) {
+
+  .left-nav {
+    gap: 8px;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: nowrap;        /* 🔥 stop vertical stacking */
+    overflow-x: auto;         /* 🔥 allow horizontal scroll */
+    gap: 8px;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header a {
+    padding: 5px 10px;
+    font-size: 12px;
+    white-space: nowrap;      /* 🔥 prevent text breaking */
+  }
+
+}
 </style>
 </head>
 
