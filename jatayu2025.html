@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jatayu 2025</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+
+body {
+  background: black;
+  color: white;
+  position: relative;
+}
+
+/* SAME RED GLOW BACKGROUND */
+body::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:500px;
+  pointer-events:none;
+  z-index:0;
+
+  background:
+    radial-gradient(circle at 50% 40%, rgba(255,0,0,0.25), transparent 70%);
+
+  filter: blur(40px);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* HEADER (UNCHANGED) */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 20px;
+
+  background: rgba(10, 10, 10, 0.5);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.left-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  color:#ff2a2a;
+  font-weight:700;
+  font-size:24px;
+}
+
+/* NAV BUTTONS (SAME GLASS STYLE) */
+.header a {
+  position: relative;
+  display: inline-block;
+  padding: 8px 18px;
+  margin-left: 12px;
+
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+
+  transition: all 0.25s ease;
+}
+
+.header a:hover {
+  transform: scale(1.08);
+  background: rgba(255,255,255,0.12);
+}
+
+.header a.active {
+  background: rgba(255,255,255,0.22);
+  box-shadow:
+    0 0 20px rgba(255,255,255,0.35),
+    0 0 40px rgba(255,255,255,0.15);
+}
+
+/* TITLE (SAME HERO STYLE BUT NO LOGO) */
+.page-title {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 64px;
+  color:#ff2a2a;
+  text-shadow:0 0 15px rgba(255,0,0,0.5);
+}
+
+/* SECTION */
+.section {
+  padding:80px 20px;
+}
+
+/* LEADERBOARD (SAME AS INDEX) */
+.leaderboard {
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.team {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#111;
+  padding:20px 25px;
+  border-radius:16px;
+  border:1px solid rgba(255,0,0,0.2);
+
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+/* SAME GLOW EFFECT */
+.team::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.15),
+    transparent 40%);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.team:hover::before {
+  opacity: 1;
+}
+
+.team:hover {
+  transform: scale(1.03);
+}
+
+/* RANK GLOWS */
+.rank1 {
+  box-shadow:
+    0 0 30px rgba(255,215,0,0.8),
+    0 0 80px rgba(255,215,0,0.4);
+}
+
+.rank2 {
+  box-shadow:
+    0 0 25px rgba(192,192,192,0.8);
+}
+
+.rank3 {
+  box-shadow:
+    0 0 25px rgba(205,127,50,0.8);
+}
+
+.team-left {
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+/* MULTI TEAM FIX */
+.team-left.multi {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.team-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.team-mini img {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* 👑 CROWN */
+.crown {
+  font-size: 28px;
+  margin-right: 10px;
+
+  filter: drop-shadow(0 0 10px gold)
+          drop-shadow(0 0 20px gold);
+
+  animation: crownGlow 2s infinite alternate;
+}
+
+@keyframes crownGlow {
+  from { transform: scale(1); }
+  to { transform: scale(1.15); }
+}
+
+.team-left img {
+  width:60px;
+  border-radius:12px;
+}
+
+.team-name {
+  font-size:18px;
+  font-weight:600;
+}
+
+.team-right {
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.team-points {
+  font-size:18px;
+  font-weight:700;
+  color:#ff2a2a;
+}
+
+/* FADE ANIMATION */
+.fade-in {
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition: all 0.7s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.section-title {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  color: #ff2a2a;
+}
+.leaderboard-title {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  color: #ff2a2a;
+
+  font-size: 28px;
+  font-weight: 600;
+
+  text-shadow:
+    0 0 10px rgba(255,0,0,0.6),
+    0 0 25px rgba(255,0,0,0.4),
+    0 0 40px rgba(255,0,0,0.2);
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="left-nav">
+    <div class="logo">JATAYU</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Student Gallery</a>
+      <a href="jatayu2025.html" class="active">Jatayu 2025</a>
+    </nav>
+  </div>
+</header>
+
+<h1 class="page-title">JATAYU 2025</h1>
+
+<section class="section">
+  <h2 class="leaderboard-title">Leaderboard</h2>
+  <div class="leaderboard" id="leaderboard"></div>
+</section>
+
+<script>
+const TEAM_DATA = [
+  { teams: ["Arihant", "Airavat"], points: 64 }, // 🥇 tie
+  { teams: ["Trishul"], points: 56 },
+  { teams: ["Vikrant"], points: 42 }
+];
+
+const leaderboard = document.getElementById('leaderboard');
+
+TEAM_DATA.forEach((entry, index) => {
+
+  const div = document.createElement('div');
+  div.classList.add('team', `rank${index + 1}`, 'fade-in');
+  const crown = index === 0 ? '<span class="crown">👑</span>' : '';
+
+  // 🔥 generate multiple teams inside one card
+  const teamsHTML = entry.teams.map(name => `
+    <div class="team-mini">
+      <img src="images/${name.toLowerCase()}logo.png">
+      <div class="team-name">${name}</div>
+    </div>
+  `).join("");
+
+  div.innerHTML = `
+  <div class="team-left multi">
+    ${crown}
+    ${teamsHTML}
+  </div>
+    <div class="team-right">
+      <div class="team-points">${entry.points} pts</div>
+    </div>
+  `;
+
+  leaderboard.appendChild(div);
+});
+
+/* MOUSE GLOW */
+document.querySelectorAll('.team, .header a').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    card.style.setProperty('--x', x + '%');
+    card.style.setProperty('--y', y + '%');
+  });
+});
+
+/* SCROLL ANIMATION */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
