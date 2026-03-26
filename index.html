@@ -276,12 +276,13 @@ body > * {
 .results-row {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: 4px;
   margin-top: 6px;
 }
 
 .results-col {
-  flex: 1;
+  flex: 0 0 auto;   /* 🔥 stops forced squeezing */
+  min-width: 48%;
   text-align: center;
 }
 
@@ -294,6 +295,22 @@ body > * {
 .pos {
   font-size: 12px;
   font-weight: 600;
+}
+@media (max-width: 600px) {
+
+  .results-col {
+    font-size: 10px;   /* 🔥 affects everything inside */
+  }
+
+  .category {
+    font-size: 10px;
+  }
+
+  .pos {
+    font-size: 9px;
+    white-space: nowrap;   /* 🔥 prevents break */
+  }
+
 }
 
 /* medal colors */
