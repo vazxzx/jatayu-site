@@ -402,6 +402,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  overflow: visible;
 
   padding: 12px 20px;
 
@@ -434,12 +435,13 @@ footer {
   border: 1px solid rgba(255, 255, 255, 0.15);
 
   transition: all 0.25s ease, box-shadow 0.4s ease;
-  overflow: hidden;
+  overflow: visible;
 }
   .header a::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -10px; /* 🔥 allow glow to expand outside */
+  border-radius: 999px;
 
   background: radial-gradient(circle at var(--x, 50%) var(--y, 50%),
     rgba(255,255,255,0.25),
