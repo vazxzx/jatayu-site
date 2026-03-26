@@ -273,6 +273,50 @@ body > * {
     0 0 25px rgba(255,0,0,0.4),
     0 0 40px rgba(255,0,0,0.2);
 }
+  @media (max-width: 600px) {
+
+  /* ===== FIX NAV ===== */
+  nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .header a {
+    padding: 5px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* ===== FIX LEADERBOARD TOP CARD ===== */
+
+  .team-left.multi {
+    gap: 10px; /* 🔥 reduce spacing */
+  }
+
+  .team-group {
+    gap: 12px; /* 🔥 MUCH smaller */
+  }
+
+  .team-mini img {
+    width: 40px; /* 🔥 smaller logos */
+    height: 40px;
+  }
+
+  .team-name {
+    font-size: 14px; /* 🔥 smaller text */
+  }
+
+  .team {
+    padding: 15px; /* tighter */
+  }
+
+}
 </style>
 </head>
 
