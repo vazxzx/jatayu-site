@@ -125,20 +125,29 @@ body > * {
 }
 
 .gallery-grid {
-  column-count: 5;
-  column-gap: 15px;
-  max-width: 1400px;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  padding: 0 20px;
 }
 
 .gallery-grid img {
   width: 100%;
-  margin-bottom: 15px;
+  height: 500px;           /* fixed height */
+  aspect-ratio: 330 / 500; /* enforces ratio */
+  object-fit: cover;       /* crop, don't stretch */
+  object-position: center; /* 🔥 center crop */
+
   border-radius: 16px;
-  break-inside: avoid;
+  margin-bottom: 15px;
+
   transition: 0.3s ease;
   opacity: 0;
   transform: translateY(20px);
+}
+
+.gallery-grid img:hover {
+  transform: scale(1.05);
 }
 
 /* smooth load animation */
@@ -164,6 +173,48 @@ footer {
   padding:20px;
   opacity:0.5;
 }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+
+  z-index: 9999;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+}
+.gallery-message {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  opacity: 0.7;
+
+  color: #ff4d4d;
+
+  text-shadow:
+    0 0 8px rgba(255,0,0,0.4),
+    0 0 20px rgba(255,0,0,0.2);
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
 </style>
 </head>
 
@@ -180,17 +231,18 @@ footer {
 </header>
 
 <section class="section">
-  <h2>Coming Soon...</h2>
 
   <div id="gallery"></div>
 </section>
 
 <footer>
-  © 2026 Jatayu
+  Jatayu 2026
 </footer>
-
+<div id="lightbox" class="lightbox">
+  <img id="lightbox-img">
+</div>
 <script>
-// const folders = ["260326", "250326"];
+const folders = ["250326"];
 
 // latest first
 folders.sort((a,b)=>b.localeCompare(a));
@@ -270,8 +322,16 @@ folders.forEach(folder => {
 }
 
   const title = document.createElement("div");
-  title.className = "gallery-title";
-  title.innerText = formatDate(folder);
+title.className = "gallery-title";
+
+// 🔥 new message
+const message = document.createElement("div");
+message.className = "gallery-message";
+message.innerText = "If you want your image added here, send it to 9372221349";
+
+section.appendChild(message);
+
+title.innerText = formatDate(folder);
 
   const grid = document.createElement("div");
   grid.className = "gallery-grid";
@@ -315,6 +375,50 @@ folders.forEach(folder => {
   }
 
   loadNext(); // 🔥 THIS WAS MISSING
+});
+</script>
+<script>
+function resizeGridItems() {
+  const grid = document.querySelector(".gallery-grid");
+  const rowHeight = 10;
+  const rowGap = 15;
+
+  grid.style.gridAutoRows = rowHeight + "px";
+
+  grid.querySelectorAll("img").forEach(item => {
+    const height = item.getBoundingClientRect().height;
+    const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+    item.style.gridRowEnd = "span " + span;
+  });
+}
+
+window.addEventListener("load", resizeGridItems);
+window.addEventListener("resize", resizeGridItems);
+</script>
+<script>
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+// OPEN (works for dynamic images)
+document.body.addEventListener("click", function(e) {
+  if (e.target.matches(".gallery-grid img")) {
+    lightboxImg.src = e.target.src;
+    lightbox.classList.add("active");
+  }
+});
+
+// CLOSE
+lightbox.addEventListener("click", () => {
+  lightbox.classList.remove("active");
+  lightboxImg.src = "";
+});
+
+// ESC key
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    lightbox.classList.remove("active");
+    lightboxImg.src = "";
+  }
 });
 </script>
 
