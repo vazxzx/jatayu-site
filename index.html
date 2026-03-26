@@ -341,7 +341,19 @@ footer {
 .left-nav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  flex-wrap: nowrap; /* 🔥 prevents breaking */
+}
+  nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap; /* 🔥 keeps buttons in one line */
+  overflow-x: auto;  /* 🔥 allows scroll instead of breaking */
+  scrollbar-width: none;
+}
+
+nav::-webkit-scrollbar {
+  display: none;
 }
 /* ===== INTERACTIVE GLOW ===== */
 .team {
@@ -412,9 +424,11 @@ footer {
 }
 
   .header a {
+    white-space: nowrap;
   position: relative;
   display: inline-block;
-  padding: 8px 18px;
+  padding: 6px 12px; /* 🔥 smaller so they fit */
+  font-size: 13px;
   margin-left: 12px;
 
   color: white;
