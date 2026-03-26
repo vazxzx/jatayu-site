@@ -133,13 +133,9 @@ body > * {
 
 .gallery-grid img {
   width: 100%;
-  height: 500px;           /* fixed height */
-  aspect-ratio: 330 / 500; /* enforces ratio */
-  object-fit: cover;       /* crop, don't stretch */
-  object-position: center; /* 🔥 center crop */
-
+  height: auto;              /* 🔥 KEY FIX */
   border-radius: 16px;
-  margin-bottom: 15px;
+  object-fit: cover;
 
   transition: 0.3s ease;
   opacity: 0;
@@ -162,11 +158,11 @@ body > * {
 }
 
 /* MOBILE */
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .gallery-grid {
-    grid-template-columns: repeat(4, 1fr); /* 🔥 4 per row */
-    gap: 8px;
-    padding: 0 8px;
+    grid-template-columns: repeat(2, 1fr); /* 🔥 FIX */
+    gap: 10px;
+    padding: 0 10px;
   }
   .gallery-grid img {
     height: 160px; /* 🔥 smaller, fits screen better */
@@ -406,24 +402,6 @@ title.innerText = formatDate(folder);
 
   loadNext(); // 🔥 THIS WAS MISSING
 });
-</script>
-<script>
-function resizeGridItems() {
-  const grid = document.querySelector(".gallery-grid");
-  const rowHeight = 10;
-  const rowGap = 15;
-
-  grid.style.gridAutoRows = rowHeight + "px";
-
-  grid.querySelectorAll("img").forEach(item => {
-    const height = item.getBoundingClientRect().height;
-    const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = "span " + span;
-  });
-}
-
-window.addEventListener("load", resizeGridItems);
-window.addEventListener("resize", resizeGridItems);
 </script>
 <script>
 const lightbox = document.getElementById("lightbox");
