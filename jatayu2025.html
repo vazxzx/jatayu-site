@@ -180,6 +180,13 @@ body > * {
 .team-left.multi {
   display: flex;
   align-items: center;
+  gap: 25px;
+}
+
+/* group both teams together */
+.team-group {
+  display: flex;
+  align-items: center;
   gap: 40px;
 }
 
@@ -198,8 +205,9 @@ body > * {
 
 /* 👑 CROWN */
 .crown {
-  font-size: 28px;
-  margin-right: 10px;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
 
   filter: drop-shadow(0 0 10px gold)
           drop-shadow(0 0 20px gold);
@@ -314,12 +322,14 @@ TEAM_DATA.forEach((entry, index) => {
   div.innerHTML = `
   <div class="team-left multi">
     ${crown}
-    ${teamsHTML}
-  </div>
-    <div class="team-right">
-      <div class="team-points">${entry.points} pts</div>
+    <div class="team-group">
+      ${teamsHTML}
     </div>
-  `;
+  </div>
+  <div class="team-right">
+    <div class="team-points">${entry.points} pts</div>
+  </div>
+`;
 
   leaderboard.appendChild(div);
 });
