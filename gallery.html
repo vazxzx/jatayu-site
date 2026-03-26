@@ -164,7 +164,9 @@ body > * {
 /* MOBILE */
 @media (max-width: 800px) {
   .gallery-grid {
-    column-count: 3;
+    grid-template-columns: repeat(4, 1fr); /* 🔥 4 per row */
+    gap: 8px;
+    padding: 0 8px;
   }
 }
 
