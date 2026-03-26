@@ -573,6 +573,47 @@ nav::-webkit-scrollbar {
 
   z-index: 2;
 }
+
+/* ===== TOMORROW CARD ===== */
+.sport-card.tomorrow {
+  box-shadow:
+    0 0 12px rgba(0,150,255,0.5),
+    0 0 25px rgba(0,150,255,0.25),
+    inset 0 0 10px rgba(0,150,255,0.15);
+
+  border: 1px solid rgba(0,150,255,0.4);
+}
+
+.sport-card.tomorrow::before {
+  opacity: 0.4;
+}
+
+/* BLUE RIBBON */
+.sport-card.tomorrow::after {
+  content: "TOMORROW";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  text-align: center;
+  padding: 6px 0;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  color: white;
+  background: linear-gradient(90deg, #2196f3, #0d6efd);
+
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  box-shadow: 0 0 12px rgba(0,150,255,0.6);
+
+  z-index: 2;
+}
+
 /* ===== OVERLAY ===== */
 .overlay {
   position: fixed;
@@ -845,11 +886,13 @@ cards.sort((a, b) => {
 });
 
 cards.forEach(card => grid.appendChild(card));
-  const today = new Date();
+const today = new Date();
 today.setHours(0,0,0,0);
 
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+
 document.querySelectorAll('.sport-card').forEach(card => {
-  // ❌ skip completed events
   if (card.classList.contains('done')) return;
 
   const cardDate = new Date(card.dataset.date);
@@ -857,6 +900,9 @@ document.querySelectorAll('.sport-card').forEach(card => {
 
   if (cardDate.getTime() === today.getTime()) {
     card.classList.add('today');
+  } 
+  else if (cardDate.getTime() === tomorrow.getTime()) {
+    card.classList.add('tomorrow');
   }
 });
   const links = document.querySelectorAll('.header a');
