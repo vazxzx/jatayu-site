@@ -469,11 +469,14 @@ footer {
   /* ===== TODAY CARD ===== */
 .sport-card.today {
   box-shadow:
-    0 0 25px rgba(255,215,0,0.9),
-    0 0 60px rgba(255,215,0,0.5),
-    inset 0 0 20px rgba(255,215,0,0.25);
-  border: 1px solid rgba(255,215,0,0.5);
-  padding-top: 34px;
+    0 0 12px rgba(255,215,0,0.5),
+    0 0 25px rgba(255,215,0,0.25),
+    inset 0 0 10px rgba(255,215,0,0.15);
+
+  border: 1px solid rgba(255,215,0,0.4);
+}
+  .sport-card.today::before {
+  opacity: 0.4; /* reduce aura intensity */
 }
 
 /* RIBBON */
@@ -492,7 +495,7 @@ footer {
   letter-spacing: 1px;
 
   color: black;
-  background: linear-gradient(90deg, #FFD700, #ffb700);
+  background: linear-gradient(90deg, #d4af37, #c89b2f);
 
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
