@@ -349,6 +349,7 @@ title.innerText = formatDate(folder);
 
   function loadNext() {
     const img = new Image();
+    img.loading = "lazy";
 
     const jpgPath = `galleryimages/${folder}/${i}.jpg`;
     const pngPath = `galleryimages/${folder}/${i}.png`;
