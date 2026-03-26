@@ -241,8 +241,27 @@ body > * {
   justify-content: center;
 }
 
+.sport-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
 .sport-card:hover {
-  transform:translateY(-6px);
+  transform: translateY(-8px) scale(1.03);
+}
+
+/* 🔥 DONE cards feel clickable */
+.sport-card.done:hover {
+  transform: translateY(-10px) scale(1.06);
+  cursor: pointer;
+
+  box-shadow:
+    0 0 25px rgba(0,255,120,0.4),
+    0 0 60px rgba(0,255,120,0.2);
+}
+
+/* 🔥 CLICK PRESS */
+.sport-card:active {
+  transform: scale(0.95);
 }
 
 .sport-card img {
@@ -554,6 +573,70 @@ nav::-webkit-scrollbar {
 
   z-index: 2;
 }
+/* ===== OVERLAY ===== */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(10px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-card {
+  background: #111;
+  border-radius: 20px;
+  padding: 25px;
+  width: 90%;
+  max-width: 400px;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  box-shadow:
+    0 0 30px rgba(0,255,120,0.2),
+    inset 0 0 20px rgba(255,255,255,0.05);
+
+  position: relative;
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.overlay-card h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #00ff88;
+}
+
+.points-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
 </style>
 
 </head>
@@ -606,10 +689,25 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-26">
+<div class="sport-card done" data-date="2026-03-26">
   <img src="images/volleyballicon.jpg">
   <p>Volleyball</p>
-  <div class="sport-meta">26 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Arihant</div>
+        <div class="pos silver">🥈 Airavat</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Trishul</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="sport-card" data-date="2026-03-27">
@@ -721,13 +819,21 @@ nav::-webkit-scrollbar {
   Government Medical College, Ratnagiri
 </footer>
 
+<div id="pointsOverlay" class="overlay hidden">
+  <div class="overlay-card">
+    <button class="close-btn">&times;</button>
+    <h3>Points Gained</h3>
+
+    <div id="pointsContent"></div>
+  </div>
+</div>
 
 <script>
   const TEAM_DATA = [
-  { name: "Vikrant", points: 4, change: -1 },
-  { name: "Arihant", points: 4, change: -1 },
-  { name: "Airavat", points: 6, change: +1 },
-  { name: "Trishul", points: 6, change: +1 }
+  { name: "Vikrant", points: 6, change: -1 },
+  { name: "Arihant", points: 10, change: 0 },
+  { name: "Airavat", points: 14, change: 0 },
+  { name: "Trishul", points: 10, change: -1 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -831,6 +937,60 @@ sorted.forEach((team, index) => {
 observer.observe(div);
 });
 </script>
+<script>
+const overlay = document.getElementById("pointsOverlay");
+const content = document.getElementById("pointsContent");
+const closeBtn = document.querySelector(".close-btn");
+
+/* ===== DATA FOR EACH SPORT ===== */
+const SPORT_POINTS = {
+  "Volleyball": {
+    Airavat: 6,
+    Arihant: 4,
+    Trishul: 6,
+    Vikrant: 4
+  },
+  "Tug of War": {
+    Airavat: 8,
+    Arihant: 6,
+    Trishul: 4,
+    Vikrant: 2
+  }
+};
+
+/* ===== CLICK HANDLER ===== */
+document.querySelectorAll(".sport-card.done").forEach(card => {
+  card.addEventListener("click", () => {
+    const sport = card.querySelector("p").innerText;
+
+    const data = SPORT_POINTS[sport];
+    if (!data) return;
+
+    content.innerHTML = "";
+
+    Object.entries(data).forEach(([team, points]) => {
+      const row = document.createElement("div");
+      row.className = "points-row";
+      row.innerHTML = `<span>${team}</span><span>${points}</span>`;
+      content.appendChild(row);
+    });
+
+    overlay.classList.remove("hidden");
+  });
+});
+
+/* ===== CLOSE ===== */
+closeBtn.addEventListener("click", () => {
+  overlay.classList.add("hidden");
+});
+
+overlay.addEventListener("click", (e) => {
+  if (e.target === overlay) {
+    overlay.classList.add("hidden");
+  }
+});
+</script>
+
 </body>
 </html>
 <!-- ▲ ▼ -->
