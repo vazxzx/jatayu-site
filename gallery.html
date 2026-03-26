@@ -384,24 +384,6 @@ title.innerText = formatDate(folder);
 });
 </script>
 <script>
-function resizeGridItems() {
-  const grid = document.querySelector(".gallery-grid");
-  const rowHeight = 10;
-  const rowGap = 15;
-
-  grid.style.gridAutoRows = rowHeight + "px";
-
-  grid.querySelectorAll("img").forEach(item => {
-    const height = item.getBoundingClientRect().height;
-    const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = "span " + span;
-  });
-}
-
-window.addEventListener("load", resizeGridItems);
-window.addEventListener("resize", resizeGridItems);
-</script>
-<script>
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
 
