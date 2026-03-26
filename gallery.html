@@ -132,7 +132,6 @@ body > * {
 }
 
 .gallery-grid img {
-  display: block;
   width: 100%;
   height: 500px;           /* fixed height */
   aspect-ratio: 330 / 500; /* enforces ratio */
@@ -170,8 +169,7 @@ body > * {
     padding: 0 8px;
   }
   .gallery-grid img {
-    height: auto;          /* 🔥 let it scale naturally */
-    aspect-ratio: 330 / 500;
+    height: 160px; /* 🔥 smaller, fits screen better */
   }
 }
 
@@ -232,7 +230,8 @@ footer {
     <div class="logo">JATAYU</div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="gallery.html" class="active">Gallery</a>
+      <a href="gallery.html" class="active">Student Gallery</a>
+      <a href="jatayu2025.html">Jatayu 2025</a>
     </nav>
   </div>
 </header>
@@ -383,6 +382,24 @@ title.innerText = formatDate(folder);
 
   loadNext(); // 🔥 THIS WAS MISSING
 });
+</script>
+<script>
+function resizeGridItems() {
+  const grid = document.querySelector(".gallery-grid");
+  const rowHeight = 10;
+  const rowGap = 15;
+
+  grid.style.gridAutoRows = rowHeight + "px";
+
+  grid.querySelectorAll("img").forEach(item => {
+    const height = item.getBoundingClientRect().height;
+    const span = Math.ceil((height + rowGap) / (rowHeight + rowGap));
+    item.style.gridRowEnd = "span " + span;
+  });
+}
+
+window.addEventListener("load", resizeGridItems);
+window.addEventListener("resize", resizeGridItems);
 </script>
 <script>
 const lightbox = document.getElementById("lightbox");
