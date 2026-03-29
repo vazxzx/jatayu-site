@@ -2,14 +2,6 @@
 
 <html lang="en">
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WF2D4PL5PF"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-
-gtag('config', 'G-WF2D4PL5PF');
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jatayu</title>
@@ -759,28 +751,37 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-27">
+<div class="sport-card done" data-date="2026-03-29">
   <img src="images/bgmiicon.jpg">
   <p>BGMI</p>
-  <div class="sport-meta">27 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Vikrant</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-28">
+<div class="sport-card" data-date="2026-03-31">
   <img src="images/footballicon.jpg">
   <p>Football</p>
-  <div class="sport-meta">28 March</div>
+  <div class="sport-meta">31 March</div>
 </div>
 
-<div class="sport-card" data-date="2026-03-28">
+<div class="sport-card" data-date="2026-03-31">
   <img src="images/boxcricketicon.jpg">
   <p>Box Cricket</p>
-  <div class="sport-meta">28 March</div>
+  <div class="sport-meta">31 March</div>
 </div>
 
-<div class="sport-card" data-date="2026-03-28">
+<div class="sport-card" data-date="2026-03-31">
   <img src="images/tabletennisicon.jpg">
   <p>Table Tennis</p>
-  <div class="sport-meta">28 March</div>
+  <div class="sport-meta">31 March</div>
 </div>
 
 <div class="sport-card" data-date="2026-04-03">
@@ -807,10 +808,27 @@ nav::-webkit-scrollbar {
   <div class="sport-meta">29 March</div>
 </div>
 
-<div class="sport-card" data-date="2026-03-29">
+<div class="sport-card done" data-date="2026-03-29">
   <img src="images/chessicon.jpg">
   <p>Chess</p>
-  <div class="sport-meta">29 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Vikrant</div>
+        <div class="pos silver">🥈 Trishul</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Airavat</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div class="sport-card" data-date="2026-04-04">
@@ -865,7 +883,7 @@ nav::-webkit-scrollbar {
 </section>
 
 <footer>
-  Jatayu, 2026
+  Government Medical College, Ratnagiri
 </footer>
 
 <div id="pointsOverlay" class="overlay hidden">
@@ -878,11 +896,17 @@ nav::-webkit-scrollbar {
 </div>
 
 <script>
-  const TEAM_DATA = [
-  { name: "Vikrant", points: 6, change: -1 },
-  { name: "Arihant", points: 10, change: 0 },
-  { name: "Airavat", points: 14, change: 0 },
-  { name: "Trishul", points: 10, change: -1 }
+//   const TEAM_DATA = [
+//   { name: "Vikrant", points: 6, change: -1 },
+//   { name: "Arihant", points: 10, change: 0 },
+//   { name: "Airavat", points: 14, change: 0 },
+//   { name: "Trishul", points: 10, change: -1 }
+// ];
+const TEAM_DATA = [
+  { name: "Airavat", points: 23, change: 0 },
+  { name: "Trishul", points: 21, change: +1 },
+  { name: "Vikrant", points: 14, change: +1 },
+  { name: "Arihant", points: 11, change: -2 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -1009,6 +1033,21 @@ const SPORT_POINTS = {
     Arihant: 6,
     Trishul: 4,
     Vikrant: 2
+  },
+
+  // ✅ UPDATED
+  "BGMI": {
+    Vikrant: 3,
+    Arihant: 0,
+    Trishul: 5,
+    Airavat: 1
+  },
+
+  "Chess": {
+    Airavat: 8,
+    Trishul: 6,
+    Arihant: 1,
+    Vikrant: 5
   }
 };
 
