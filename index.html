@@ -766,22 +766,57 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-31">
+<div class="sport-card done" data-date="2026-03-31">
   <img src="images/footballicon.jpg">
   <p>Football</p>
-  <div class="sport-meta">31 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Arihant</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-31">
+<div class="sport-card done" data-date="2026-03-31">
   <img src="images/boxcricketicon.jpg">
   <p>Box Cricket</p>
-  <div class="sport-meta">31 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Airavat</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="sport-card" data-date="2026-03-31">
+<div class="sport-card done" data-date="2026-03-31">
   <img src="images/tabletennisicon.jpg">
   <p>Table Tennis</p>
-  <div class="sport-meta">31 March</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Arihant</div>
+        <div class="pos silver">🥈 Trishul</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Vikrant</div>
+        <div class="pos silver">🥈 Vikrant</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div class="sport-card" data-date="2026-04-03">
@@ -837,10 +872,10 @@ nav::-webkit-scrollbar {
   <div class="sport-meta">4 April</div>
 </div>
 
-<div class="sport-card" data-date="2026-04-04">
+<div class="sport-card" data-date="2026-04-02">
   <img src="images/freefireicon.jpg">
   <p>Free Fire</p>
-  <div class="sport-meta">Soon</div>
+  <div class="sport-meta">2 April</div>
 </div>
 
 <div class="sport-card" data-date="2026-04-05">
@@ -903,10 +938,10 @@ nav::-webkit-scrollbar {
 //   { name: "Trishul", points: 10, change: -1 }
 // ];
 const TEAM_DATA = [
-  { name: "Airavat", points: 23, change: 0 },
-  { name: "Trishul", points: 21, change: +1 },
-  { name: "Vikrant", points: 14, change: +1 },
-  { name: "Arihant", points: 11, change: -2 }
+  { name: "Trishul", points: 35, change: +1 },
+  { name: "Arihant", points: 22, change: 0 },
+  { name: "Vikrant", points: 24, change: 0 },
+  { name: "Airavat", points: 28, change: -1 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -1028,6 +1063,7 @@ const SPORT_POINTS = {
     Trishul: 6,
     Vikrant: 4
   },
+  
   "Tug of War": {
     Airavat: 8,
     Arihant: 6,
@@ -1048,7 +1084,27 @@ const SPORT_POINTS = {
     Trishul: 6,
     Arihant: 1,
     Vikrant: 5
-  }
+  },
+  "Football": {
+  Trishul: 5,
+  Arihant: 3,
+  Vikrant: 1,
+  Airavat: 1
+},
+
+"Box Cricket": {
+  Trishul: 5,
+  Airavat: 3,
+  Vikrant: 1,
+  Arihant: 1
+},
+
+"Table Tennis": {
+  Trishul: 4,
+  Arihant: 7,
+  Vikrant: 8,
+  Airavat: 1
+},
 };
 
 /* ===== CLICK HANDLER ===== */
