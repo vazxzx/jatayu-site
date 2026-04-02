@@ -872,10 +872,19 @@ nav::-webkit-scrollbar {
   <div class="sport-meta">4 April</div>
 </div>
 
-<div class="sport-card" data-date="2026-04-02">
+<div class="sport-card done" data-date="2026-04-02">
   <img src="images/freefireicon.jpg">
   <p>Free Fire</p>
-  <div class="sport-meta">2 April</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Trishul</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="sport-card" data-date="2026-04-05">
@@ -938,10 +947,10 @@ nav::-webkit-scrollbar {
 //   { name: "Trishul", points: 10, change: -1 }
 // ];
 const TEAM_DATA = [
-  { name: "Trishul", points: 35, change: +1 },
-  { name: "Arihant", points: 22, change: 0 },
-  { name: "Vikrant", points: 24, change: 0 },
-  { name: "Airavat", points: 28, change: -1 }
+  { name: "Trishul", points: 38, change: 0 },
+  { name: "Arihant", points: 23, change: 0 },
+  { name: "Vikrant", points: 25, change: 0 },
+  { name: "Airavat", points: 33, change: 0 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -1063,6 +1072,12 @@ const SPORT_POINTS = {
     Trishul: 6,
     Vikrant: 4
   },
+  "Free Fire": {
+  Airavat: 5,
+  Trishul: 3,
+  Vikrant: 1,
+  Arihant: 1
+},
   
   "Tug of War": {
     Airavat: 8,
