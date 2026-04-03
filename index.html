@@ -819,22 +819,57 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-04-03">
+<div class="sport-card done" data-date="2026-04-03">
   <img src="images/badmintonicon.jpg">
   <p>Badminton</p>
-  <div class="sport-meta">3 April</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Airavat</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Arihant</div>
+        <div class="pos silver">🥈 Arihant</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
-<div class="sport-card" data-date="2026-04-03">
+<div class="sport-card done" data-date="2026-04-03">
   <img src="images/carromicon.jpg">
   <p>Carrom</p>
-  <div class="sport-meta">3 April</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Airavat</div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="sport-card" data-date="2026-04-03">
+<div class="sport-card done" data-date="2026-04-03">
   <img src="images/kabaddiicon.jpg">
   <p>Kabaddi</p>
-  <div class="sport-meta">3 April</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+      <div class="results-col">
+        <div class="category">Winners</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Vikrant</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="sport-card" data-date="2026-04-5">
@@ -940,17 +975,11 @@ nav::-webkit-scrollbar {
 </div>
 
 <script>
-//   const TEAM_DATA = [
-//   { name: "Vikrant", points: 6, change: -1 },
-//   { name: "Arihant", points: 10, change: 0 },
-//   { name: "Airavat", points: 14, change: 0 },
-//   { name: "Trishul", points: 10, change: -1 }
-// ];
 const TEAM_DATA = [
-  { name: "Trishul", points: 38, change: 0 },
-  { name: "Arihant", points: 23, change: 0 },
-  { name: "Vikrant", points: 25, change: 0 },
-  { name: "Airavat", points: 33, change: 0 }
+  { name: "Trishul", points: 61, change: 0 },
+  { name: "Airavat", points: 52, change: 0 },
+  { name: "Arihant", points: 34, change: +1 },
+  { name: "Vikrant", points: 32, change: -1 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -1072,6 +1101,26 @@ const SPORT_POINTS = {
     Trishul: 6,
     Vikrant: 4
   },
+  "Badminton": {
+  Trishul: 10,
+  Airavat: 8,
+  Arihant: 10,
+  Vikrant: 4
+},
+
+"Carrom": {
+  Airavat: 8,
+  Vikrant: 1,
+  Arihant: 1,
+  Trishul: 0
+},
+
+"Kabaddi": {
+  Trishul: 5,
+  Vikrant: 3,
+  Airavat: 1,
+  Arihant: 1
+},
   "Free Fire": {
   Airavat: 5,
   Trishul: 3,
