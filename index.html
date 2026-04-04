@@ -872,10 +872,27 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-04-5">
+<div class="sport-card done" data-date="2026-04-05">
   <img src="images/khokhoicon.jpg">
   <p>Kho-Kho</p>
-  <div class="sport-meta">Soon</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Arihant</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Airavat</div>
+        <div class="pos silver">🥈 Arihant</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div class="sport-card done" data-date="2026-03-29">
@@ -901,10 +918,27 @@ nav::-webkit-scrollbar {
   </div>
 </div>
 
-<div class="sport-card" data-date="2026-04-04">
+<div class="sport-card done" data-date="2026-04-04">
   <img src="images/swimmingicon.jpg">
   <p>Swimming</p>
-  <div class="sport-meta">4 April</div>
+
+  <div class="sport-meta winner">
+    <div class="results-row">
+
+      <div class="results-col">
+        <div class="category">Girls</div>
+        <div class="pos gold">🥇 Arihant</div>
+        <div class="pos silver">🥈 Vikrant</div>
+      </div>
+
+      <div class="results-col">
+        <div class="category">Boys</div>
+        <div class="pos gold">🥇 Trishul</div>
+        <div class="pos silver">🥈 Trishul</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 <div class="sport-card done" data-date="2026-04-02">
@@ -975,11 +1009,11 @@ nav::-webkit-scrollbar {
 </div>
 
 <script>
-const TEAM_DATA = [
-  { name: "Trishul", points: 61, change: 0 },
-  { name: "Airavat", points: 52, change: 0 },
-  { name: "Arihant", points: 34, change: +1 },
-  { name: "Vikrant", points: 32, change: -1 }
+cconst TEAM_DATA = [
+  { name: "Trishul", points: 72, change: 0 },
+  { name: "Airavat", points: 63, change: 0 },
+  { name: "Arihant", points: 45, change: 0 },
+  { name: "Vikrant", points: 37, change: 0 }
 ];
 const grid = document.querySelector('.sports-grid');
 const cards = Array.from(grid.children);
@@ -1101,6 +1135,19 @@ const SPORT_POINTS = {
     Trishul: 6,
     Vikrant: 4
   },
+  "Swimming": {
+  Trishul: 9,
+  Arihant: 5,
+  Vikrant: 3,
+  Airavat: 1
+},
+
+"Kho-Kho": {
+  Airavat: 10,
+  Arihant: 6,
+  Trishul: 2,
+  Vikrant: 2
+},
   "Badminton": {
   Trishul: 10,
   Airavat: 8,
