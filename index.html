@@ -678,6 +678,113 @@ nav::-webkit-scrollbar {
   font-size: 22px;
   cursor: pointer;
 }
+  /* 👑 Crown next to name */
+.team.winner .team-name::after {
+  content: " 👑";
+  margin-left: 6px;
+  font-size: 18px;
+
+  /* glow */
+  text-shadow:
+    0 0 6px rgba(255,215,0,0.9),
+    0 0 12px rgba(255,215,0,0.6),
+    0 0 20px rgba(255,215,0,0.4);
+}
+
+/* ✨ subtle gold glow for entire card */
+.team.winner {
+  position: relative;
+
+  box-shadow:
+    0 0 40px rgba(255,215,0,0.9),
+    0 0 120px rgba(255,215,0,0.5),
+    inset 0 0 25px rgba(255,215,0,0.25);
+
+  border: 1px solid rgba(255,215,0,0.6);
+}
+
+/* ✨ outer aura (THIS makes it insane) */
+.team.winner::after {
+  content: "";
+  position: absolute;
+  inset: -40px;
+
+  background: radial-gradient(circle, rgba(255,215,0,0.35), transparent 70%);
+  filter: blur(50px);
+
+  z-index: -1;
+}
+
+/* ✨ optional soft pulse (INSANE LOOK) */
+@keyframes crownPulse {
+  0% { text-shadow: 0 0 6px rgba(255,215,0,0.6); }
+  50% { text-shadow: 0 0 20px rgba(255,215,0,1); }
+  100% { text-shadow: 0 0 6px rgba(255,215,0,0.6); }
+}
+
+.team.winner .team-name {
+  display: flex;
+  align-items: center; /* 🔥 vertical alignment fix */
+  gap: 10px;
+}
+
+.team.winner .team-name::after {
+  content: " WINNER"; /* 👈 only text */
+
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  /* gold gradient */
+  background: linear-gradient(90deg, #FFD700, #fff3b0, #FFD700);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 0 12px rgba(255,215,0,1),
+    0 0 30px rgba(255,215,0,0.7);
+
+  animation: winnerFlow 3s linear infinite;
+}
+.team.winner .team-name::before {
+  content: "👑";
+
+  font-size: 22px;
+  margin-left: 10px;
+
+  display: inline-block;
+
+  transform: translateY(-3px); /* your offset */
+
+  /* 🔥 CROWN GLOW */
+  text-shadow:
+    0 0 8px rgba(255,215,0,1),
+    0 0 18px rgba(255,215,0,0.9),
+    0 0 35px rgba(255,215,0,0.7),
+    0 0 60px rgba(255,215,0,0.5);
+}
+@keyframes crownGlow {
+  0% {
+    text-shadow:
+      0 0 6px rgba(255,215,0,0.6),
+      0 0 15px rgba(255,215,0,0.5);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(255,215,0,1),
+      0 0 40px rgba(255,215,0,0.9);
+  }
+  100% {
+    text-shadow:
+      0 0 6px rgba(255,215,0,0.6),
+      0 0 15px rgba(255,215,0,0.5);
+  }
+}
+
+.team.winner .team-name::before {
+  animation: crownGlow 2s ease-in-out infinite;
+}
 </style>
 
 </head>
@@ -1208,19 +1315,24 @@ sorted.forEach((team, index) => {
     symbol = "▼" + Math.abs(team.change);
   }
 
-  const div = document.createElement('div');
-  div.classList.add('team', `rank${index + 1}`);
+const div = document.createElement('div');
 
-  div.innerHTML = `
-    <div class="team-left">
-      <img src="images/${team.name.toLowerCase()}logo.png">
-      <div class="team-name">${team.name}</div>
-    </div>
-    <div class="team-right">
-      <div class="team-change ${changeClass}">${symbol}</div>
-      <div class="team-points">${team.points} pts</div>
-    </div>
-  `;
+div.classList.add('team', `rank${index + 1}`);
+
+if (index === 0) {
+  div.classList.add('winner');
+}
+
+div.innerHTML = `
+  <div class="team-left">
+    <img src="images/${team.name.toLowerCase()}logo.png">
+    <div class="team-name">${team.name}</div>
+  </div>
+  <div class="team-right">
+    <div class="team-change ${changeClass}">${symbol}</div>
+    <div class="team-points">${team.points} pts</div>
+  </div>
+`;
 
   leaderboard.appendChild(div);
   div.classList.add('fade-in');
